@@ -59,7 +59,7 @@ resource "aws_ecs_task_definition" "retool_api" {
         },
         {
           name : "COOKIE_INSECURE",
-          value : "true"
+          value : "false"
         }
       ]
       secrets = [
@@ -147,10 +147,6 @@ resource "aws_ecs_task_definition" "retool_jobs_runner" {
         {
           name : "POSTGRES_USER",
           value : "retool"
-        },
-        {
-          name : "COOKIE_INSECURE",
-          value : "true"
         }
       ]
       secrets = [

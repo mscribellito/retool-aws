@@ -34,7 +34,8 @@ No modules.
 | [aws_iam_role.retool_execution](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/iam_role) | resource |
 | [aws_iam_role.retool_task](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/iam_role) | resource |
 | [aws_lb.retool](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/lb) | resource |
-| [aws_lb_listener.retool](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/lb_listener) | resource |
+| [aws_lb_listener.retool_http](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/lb_listener) | resource |
+| [aws_lb_listener.retool_https](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/lb_listener) | resource |
 | [aws_lb_listener_rule.retool](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/lb_listener_rule) | resource |
 | [aws_lb_target_group.retool](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/lb_target_group) | resource |
 | [aws_secretsmanager_secret.retool_database_password](https://registry.terraform.io/providers/hashicorp/aws/4.53.0/docs/resources/secretsmanager_secret) | resource |
@@ -58,6 +59,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | ARN of the SSL server certificate. | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | n/a | `string` | n/a | yes |
 | <a name="input_retool_license_key"></a> [retool\_license\_key](#input\_retool\_license\_key) | Retool license key. | `string` | `"EXPIRED-LICENSE-KEY-TRIAL"` | no |
 | <a name="input_retool_version"></a> [retool\_version](#input\_retool\_version) | Retool version number. | `string` | n/a | yes |
@@ -68,4 +70,3 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_dns_name"></a> [dns\_name](#output\_dns\_name) | The DNS name of the load balancer. |
-

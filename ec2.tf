@@ -11,6 +11,13 @@ resource "aws_security_group" "ingress" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -68,10 +75,27 @@ resource "aws_lb" "retool" {
   subnets            = data.aws_subnets.subnets.ids
 }
 
-resource "aws_lb_listener" "retool" {
+resource "aws_lb_listener" "retool_http" {
   load_balancer_arn = aws_lb.retool.arn
-  port              = 80
+  port              = "80"
   protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_listener" "retool_https" {
+  load_balancer_arn = aws_lb.retool.arn
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.certificate_arn
 
   default_action {
     type             = "forward"
@@ -80,7 +104,7 @@ resource "aws_lb_listener" "retool" {
 }
 
 resource "aws_lb_listener_rule" "retool" {
-  listener_arn = aws_lb_listener.retool.arn
+  listener_arn = aws_lb_listener.retool_https.arn
   priority     = 1
 
   action {
